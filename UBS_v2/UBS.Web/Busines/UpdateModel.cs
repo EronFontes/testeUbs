@@ -32,22 +32,15 @@ namespace Business
                     // Binding do json serializado para a listagem.
                     listPerson = JsonConvert.DeserializeObject<List<Person>>(streamReader?.ReadToEnd());
                 }
-            } catch
+
+                // Binding da nova lista para a lista estática do middleware.
+                PersonProvider.ListPerson = listPerson;
+            }
+            catch
             {
                 // Tratamento para exceptions em System.IO.
-                Task.Delay(2000).ContinueWith(task => Start(pathFull));                
+                Task.Delay(2000).ContinueWith(task => Start(pathFull));
             }
-
-            // Binding da nova lista para a lista estática do middleware.
-            PersonProvider.ListPerson = listPerson;
-        }
-
-        /// <summary>
-        /// Stop.
-        /// </summary>
-        public void Stop()
-        {
-
         }
     }
 }

@@ -10,6 +10,5 @@ namespace Core.Interfaces
     public interface IUpdateModel
     {
         void Start(string pathFull);
-        void Stop();
     }
 }

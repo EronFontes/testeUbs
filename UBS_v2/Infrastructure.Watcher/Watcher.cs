@@ -1,8 +1,10 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.Caching;
+using System.Threading;
 
 namespace Infrastructure.Watcher
 {
@@ -15,6 +17,13 @@ namespace Infrastructure.Watcher
         private const int CacheTimeMilliseconds = 1000;
         string _path = String.Empty;
         string _fileName = String.Empty;
+
+        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+        static extern IntPtr OpenThread(uint dwDesiredAccess, bool bInheritHandle, uint dwThreadId);
+
+
+        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+        static extern bool TerminateThread(IntPtr hThread, uint dwExitCode);
 
         public Watcher(IUpdateModel updateModel)
         {
@@ -53,17 +62,33 @@ namespace Infrastructure.Watcher
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
 
-            _cacheItemPolicy.AbsoluteExpiration =
-            DateTimeOffset.Now.AddMilliseconds(CacheTimeMilliseconds);
+            ProcessThreadCollection processThreads = Process.GetCurrentProcess().Threads;
+
+            foreach (ProcessThread thread in processThreads)
+            {
+                IntPtr ptrThread = OpenThread(1, false, (uint)thread.Id);
+
+                if (PersonProvider.ThreadId == thread.Id)
+                    TerminateThread(ptrThread, 1);
+            }
+
+            _cacheItemPolicy.AbsoluteExpiration = DateTimeOffset.Now.AddMilliseconds(CacheTimeMilliseconds);
 
             // Only add if it is not there already (swallow others)
-            var obj =_memCache.AddOrGetExisting(e.Name, e, _cacheItemPolicy);
+            var obj = _memCache.AddOrGetExisting(e.Name, e, _cacheItemPolicy);
 
             if (obj == null)
             {
-                Console.WriteLine(e.ChangeType + e.Name);
-                _updateModel.Start(_path + "\\" + _fileName);
+                Thread thread = new Thread(StartImport);
+                PersonProvider.ThreadId = thread.ManagedThreadId;
+
+                thread.Start();
             }
+        }
+
+        public void StartImport()
+        {
+            _updateModel.Start(_path + "\\" + _fileName);
         }
 
         // Handle cache item expiring
