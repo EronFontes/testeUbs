@@ -1,0 +1,11 @@
+D:\Repositorios\UBS\UBS\Business\obj\Debug\Business.csproj.CoreCompileInputs.cache
+D:\Repositorios\UBS\UBS\Business\bin\Debug\Business.dll
+D:\Repositorios\UBS\UBS\Business\bin\Debug\Business.pdb
+D:\Repositorios\UBS\UBS\Business\bin\Debug\Model.dll
+D:\Repositorios\UBS\UBS\Business\bin\Debug\Newtonsoft.Json.dll
+D:\Repositorios\UBS\UBS\Business\bin\Debug\Model.pdb
+D:\Repositorios\UBS\UBS\Business\bin\Debug\Newtonsoft.Json.xml
+D:\Repositorios\UBS\UBS\Business\obj\Debug\Business.csprojAssemblyReference.cache
+D:\Repositorios\UBS\UBS\Business\obj\Debug\Business.csproj.CopyComplete
+D:\Repositorios\UBS\UBS\Business\obj\Debug\Business.dll
+D:\Repositorios\UBS\UBS\Business\obj\Debug\Business.pdb

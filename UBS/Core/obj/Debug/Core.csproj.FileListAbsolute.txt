@@ -1,0 +1,9 @@
+D:\Repositorios\UBS\UBS\Core\bin\Debug\Core.dll
+D:\Repositorios\UBS\UBS\Core\bin\Debug\Core.pdb
+D:\Repositorios\UBS\UBS\Core\obj\Debug\Core.csproj.CoreCompileInputs.cache
+D:\Repositorios\UBS\UBS\Core\obj\Debug\Core.dll
+D:\Repositorios\UBS\UBS\Core\obj\Debug\Core.pdb
+D:\Repositorios\UBS\UBS\Core\bin\Debug\Newtonsoft.Json.dll
+D:\Repositorios\UBS\UBS\Core\bin\Debug\Newtonsoft.Json.xml
+D:\Repositorios\UBS\UBS\Core\obj\Debug\Core.csprojAssemblyReference.cache
+D:\Repositorios\UBS\UBS\Core\obj\Debug\Core.csproj.CopyComplete
