@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>List Person</title>
+    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <style>
+        .dataTables_filter, .dataTables_info, #rows_length {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <h2>UBS - List Person</h2>
+    <hr />
+    <table id="rows" class="table"></table>
+    <script type="text/javascript">
+        function updateModel() {
+            setTimeout(function () {
+                $.ajax({
+                    url: '@Url.Action("Middleware", "Home")',
+                    type: 'GET',
+                    data: {},
+                    datatype: 'json',
+                    success: function (data) {
+                        var tableHeader = '<thead><tr><th>Gender</th><th>Company</th><th>State</th></tr></thead>';
+                        var tableBody = '';
+                        for (var i = 0; i < data.length; i++) {
+                            tableBody += '<tr><td>' + data[i].Gender + '</td><td>' + data[i].Company + '</td><td>' + data[i].State + '</td></tr>';
+                        }
+                        document.getElementById('rows').innerHTML = tableHeader + tableBody;
+                        $('#rows').DataTable({ destroy: true, paging: false });
+                    },
+                });
+                updateModel();
+            }, 2000);
+        }
+
+        updateModel();
+    </script>
+</body>
+</html>
