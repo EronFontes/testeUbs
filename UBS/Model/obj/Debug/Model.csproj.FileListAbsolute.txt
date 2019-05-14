@@ -1,9 +1,0 @@
-D:\Repositorios\UBS\UBS\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
-D:\Repositorios\UBS\UBS\Model\obj\Debug\Model.csprojAssemblyReference.cache
-D:\Repositorios\UBS\UBS\Model\bin\Debug\Model.dll
-D:\Repositorios\UBS\UBS\Model\bin\Debug\Model.pdb
-D:\Repositorios\UBS\UBS\Model\bin\Debug\Newtonsoft.Json.dll
-D:\Repositorios\UBS\UBS\Model\bin\Debug\Newtonsoft.Json.xml
-D:\Repositorios\UBS\UBS\Model\obj\Debug\Model.csproj.CopyComplete
-D:\Repositorios\UBS\UBS\Model\obj\Debug\Model.dll
-D:\Repositorios\UBS\UBS\Model\obj\Debug\Model.pdb
