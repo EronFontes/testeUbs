@@ -1,5 +1,6 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
+using Core.Provider;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,24 +22,24 @@ namespace Business
         /// <param name="pathFull"></param>
         public void Start(string pathFull)
         {
-            // Lista local para leitura do json.
-            List<Person> listPerson = new List<Person>();
+            // Local list for reading json.
+            List<People> listPeople = new List<People>();
 
             try
             {
-                // Leitura do .json via streamReader.
+                // Reading .json via streamReader.
                 using (StreamReader streamReader = new StreamReader(pathFull))
                 {
-                    // Binding do json serializado para a listagem.
-                    listPerson = JsonConvert.DeserializeObject<List<Person>>(streamReader?.ReadToEnd());
+                    // Binding json
+                    listPeople = JsonConvert.DeserializeObject<List<People>>(streamReader?.ReadToEnd());
                 }
 
-                // Binding da nova lista para a lista estática do middleware.
-                PersonProvider.ListPerson = listPerson;
+                // Binding to new static list for middleware.
+                PeopleProvider.ListPeople = listPeople;
             }
             catch
             {
-                // Tratamento para exceptions em System.IO.
+                // ttreatment for exceptions em System.IO.
                 Task.Delay(2000).ContinueWith(task => Start(pathFull));
             }
         }

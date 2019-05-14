@@ -44,8 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Person.cs" />
-    <Compile Include="Entities\PersonProvider.cs" />
+    <Compile Include="Entities\People.cs" />
+    <Compile Include="Provider\KernelProvider.cs" />
+    <Compile Include="Provider\PeopleProvider.cs" />
     <Compile Include="Interfaces\IStartup.cs" />
     <Compile Include="Interfaces\IUpdateModel.cs" />
     <Compile Include="Interfaces\IWatcher.cs" />

@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace Core.Entities
 {
-    public class Person
+    public class People
     {
         public int Id { get; set; }
 

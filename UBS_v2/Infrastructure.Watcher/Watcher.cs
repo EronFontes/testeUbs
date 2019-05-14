@@ -1,4 +1,4 @@
-﻿using Core.Entities;
+﻿using Core.Provider;
 using Core.Interfaces;
 using System;
 using System.Diagnostics;
@@ -17,13 +17,6 @@ namespace Infrastructure.Watcher
         private const int CacheTimeMilliseconds = 1000;
         string _path = String.Empty;
         string _fileName = String.Empty;
-
-        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
-        static extern IntPtr OpenThread(uint dwDesiredAccess, bool bInheritHandle, uint dwThreadId);
-
-
-        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
-        static extern bool TerminateThread(IntPtr hThread, uint dwExitCode);
 
         public Watcher(IUpdateModel updateModel)
         {
@@ -61,26 +54,27 @@ namespace Infrastructure.Watcher
 
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
-
             ProcessThreadCollection processThreads = Process.GetCurrentProcess().Threads;
 
             foreach (ProcessThread thread in processThreads)
             {
-                IntPtr ptrThread = OpenThread(1, false, (uint)thread.Id);
 
-                if (PersonProvider.ThreadId == thread.Id)
-                    TerminateThread(ptrThread, 1);
+                if (PeopleProvider.ThreadId == thread.Id)
+                {
+                    IntPtr ptrThread = KernelProvider.OpenThread(1, false, (uint)thread.Id);
+                    KernelProvider.TerminateThread(ptrThread, 1);
+                }
             }
 
             _cacheItemPolicy.AbsoluteExpiration = DateTimeOffset.Now.AddMilliseconds(CacheTimeMilliseconds);
 
-            // Only add if it is not there already (swallow others)
+            // Only add first time, after item exist. HotFix about `n` call`s.
             var obj = _memCache.AddOrGetExisting(e.Name, e, _cacheItemPolicy);
 
             if (obj == null)
             {
                 Thread thread = new Thread(StartImport);
-                PersonProvider.ThreadId = thread.ManagedThreadId;
+                PeopleProvider.ThreadId = thread.ManagedThreadId;
 
                 thread.Start();
             }

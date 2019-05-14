@@ -1,4 +1,4 @@
-﻿using Core.Entities;
+﻿using Core.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +28,7 @@ namespace UBS.Web.Controllers
         /// <returns></returns>
         public JsonResult Middleware()
         {
-            return Json(PersonProvider.ListPerson, JsonRequestBehavior.AllowGet);
+            return Json(PeopleProvider.ListPeople, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
